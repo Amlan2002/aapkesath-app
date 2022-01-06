@@ -1,6 +1,5 @@
 import 'package:diabetes_app/screen/consultDoctors.dart';
 import 'package:diabetes_app/screen/nursingSupport.dart';
-import 'package:diabetes_app/widget/bottomNavigationBaWidget.dart';
 import 'package:flutter/material.dart';
 
 class HealthSupportServices extends StatelessWidget {
@@ -17,7 +16,6 @@ class HealthSupportServices extends StatelessWidget {
     double devicewidth = mediaQueryData.size.width;
 
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
       body: Column(
         children: [
           Container(

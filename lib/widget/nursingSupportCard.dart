@@ -5,7 +5,6 @@ class NursingSupportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
-    double deviceHeight = mediaQueryData.size.height;
     double devicewidth = mediaQueryData.size.width;
 
     return Container(

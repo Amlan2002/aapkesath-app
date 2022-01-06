@@ -1,4 +1,6 @@
+import 'package:diabetes_app/widget/alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Auth {
@@ -6,24 +8,7 @@ class Auth {
 
   Stream<User?> authStateChanges() => FirebaseAuth.instance.authStateChanges();
 
-  Future<User?> signInAnonymously() async {
-    final userCredential = await FirebaseAuth.instance.signInAnonymously();
-    return userCredential.user;
-  }
-
-  Future<User?> signInWithEmailAndPassword(
-      String email, String password) async {
-    final userCredential = await FirebaseAuth.instance.signInWithCredential(
-        EmailAuthProvider.credential(email: email, password: password));
-    return userCredential.user;
-  }
-
-  Future<User?> createUserWithEmailAndPassword(
-      String email, String password) async {
-    final userCredential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
-    return userCredential.user;
-  }
+  String verificationID = "";
 
   Future<User?> signInWithGoogle() async {
     final googleSignIn = GoogleSignIn();
@@ -47,6 +32,34 @@ class Auth {
     }
   }
 
+  Future<void> loginWithPhone(
+      {required String phone, required BuildContext context}) async {
+    FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: phone,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await FirebaseAuth.instance.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) async {
+        await showExceptionAlertDialog(
+          context,
+          title: 'Verification Failed',
+          exception: e,
+        );
+        Navigator.of(context).pop();
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        verificationID = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
+
+  Future<void> verifyOTP({required String otp}) async {
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationID, smsCode: otp);
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
   Future<void> signOut() async {
     final googleSignIn = GoogleSignIn();

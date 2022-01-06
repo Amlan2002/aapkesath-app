@@ -1,5 +1,4 @@
 import 'package:diabetes_app/screen/consultDoctors.dart';
-import 'package:diabetes_app/screen/healthSupportServices.dart';
 import 'package:diabetes_app/screen/manageMyHealth.dart';
 import 'package:diabetes_app/screen/myDocuments.dart';
 import 'package:diabetes_app/service/auth.dart';

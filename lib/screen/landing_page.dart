@@ -1,7 +1,6 @@
-import 'package:diabetes_app/screen/homePage.dart';
-import 'package:diabetes_app/screen/register.dart';
+import 'package:diabetes_app/screen/loding_user.dart';
 import 'package:diabetes_app/service/auth.dart';
-import 'package:diabetes_app/widget/alert_dialog.dart';
+import 'package:diabetes_app/widget/bottomNavigationBaWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,18 +35,12 @@ class _LandingPageState extends State<LandingPage> {
             final User? user = snapshot.data;
             if (user != null) {
               if (user.displayName == 'AppkesathUser2021') {
-                return HomePage(
-                  newuser: false,
-                );
+                return LoadingUser(newUser: false);
               } else {
-                return HomePage(
-                  newuser: true,
-                );
+                return LoadingUser(newUser: true);
               }
             } else {
-              return Login(
-                emailNotVerifiedWarning: false,
-              );
+              return Login();
             }
           }
           return loadingWidget();

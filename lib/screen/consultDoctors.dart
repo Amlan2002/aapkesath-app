@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:diabetes_app/widget/bottomNavigationBaWidget.dart';
 import 'package:diabetes_app/widget/consultDoctors_card.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +19,6 @@ class ConsultDoctors extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(),
       body: Container(
         height: deviceHeight * 0.82,
         child: Stack(

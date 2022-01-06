@@ -1,5 +1,3 @@
-import 'package:diabetes_app/screen/healthSupportServices.dart';
-import 'package:diabetes_app/screen/homePage.dart';
 import 'package:diabetes_app/screen/landing_page.dart';
 import 'package:diabetes_app/service/auth.dart';
 import 'package:diabetes_app/service/firestoreApi.dart';

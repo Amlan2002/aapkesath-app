@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:diabetes_app/widget/bottomNavigationBaWidget.dart';
 import 'package:diabetes_app/widget/nursingSupportCard.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +11,6 @@ class NursingSupport extends StatelessWidget {
     double deviceHeight = mediaQueryData.size.height;
     double devicewidth = mediaQueryData.size.width;
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
       appBar: AppBar(
         backgroundColor: Colors.amber,
         elevation: 10,

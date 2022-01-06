@@ -1,20 +1,14 @@
+import 'package:diabetes_app/model/user.dart';
 import 'package:diabetes_app/screen/healthSupportServices.dart';
 import 'package:diabetes_app/screen/manageMyHealth.dart';
-import 'package:diabetes_app/screen/register.dart';
-import 'package:diabetes_app/service/auth.dart';
-import 'package:diabetes_app/widget/bottomNavigationBaWidget.dart';
 import 'package:diabetes_app/widget/navigationDrawerWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  final bool newuser;
   const HomePage({
     Key? key,
-    required this.newuser,
-    // required this.moveToManageMyHealth,
   }) : super(key: key);
-  // final VoidCallback moveToManageMyHealth;
   static const routeName = '/Home-page';
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,27 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  void initState() {
-    super.initState();
-    if (widget.newuser) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) {
-            return Resgister(isThirdpartySignup: true);
-          },
-        ));
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    double deviceHeight = mediaQueryData.size.height;
-    double devicewidth = mediaQueryData.size.width;
-
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         title: Text('AapkeSath'),
@@ -90,13 +65,15 @@ class _HomePageState extends State<HomePage> {
                             height: 50,
                             width: 200,
                             child: Center(
-                              child: Text(
-                                "Shubam!",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
+                              child: Consumer<AppUser?>(
+                                builder: (ctx, user, child) => Text(
+                                  "${user!.firstName}!",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30,
+                                  ),
+                                  softWrap: true,
                                 ),
-                                softWrap: true,
                               ),
                             ),
                           ),

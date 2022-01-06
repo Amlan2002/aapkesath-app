@@ -45,7 +45,6 @@ class _ManageMyHealthState extends State<ManageMyHealth> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
       appBar: AppBar(
         title: const Text("Manage My Health"),
       ),

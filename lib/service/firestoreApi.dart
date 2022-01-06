@@ -8,22 +8,6 @@ import 'auth.dart';
 class FirestoreApi {
   final db = FirebaseFirestore.instance;
 
-  Future<void> userSignUpWithEmail(
-      AppUser newUser, BuildContext context) async {
-    final auth = Provider.of<Auth>(context, listen: false);
-    final user = await auth.createUserWithEmailAndPassword(
-      newUser.email,
-      newUser.password!,
-    );
-    if (user != null) {
-      auth.currentuser!.sendEmailVerification();
-      DocumentReference ref = db.doc('users/${user.uid}');
-      await ref.set(newUser.toJson());
-      await auth.currentuser!.updateDisplayName('AppkesathUser2021');
-      auth.signOut();
-    }
-  }
-
   Future<void> userSignUpWithThirdparyProvider(
       AppUser newUser, BuildContext context) async {
     final auth = Provider.of<Auth>(context, listen: false);
@@ -33,5 +17,11 @@ class FirestoreApi {
       await ref.set(newUser.toJson());
       await auth.currentuser!.updateDisplayName('AppkesathUser2021');
     }
+  }
+
+  Stream<AppUser?> getCurrentUserDetailsStream(String userId) {
+    DocumentReference ref = db.doc('users/$userId');
+    final snapshot = ref.snapshots();
+    return snapshot.map((snapshot) => AppUser.fromJson(snapshot.data()));
   }
 }

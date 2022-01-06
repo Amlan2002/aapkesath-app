@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">805516339508-k7ohemnfr8dropg9bqeuvu6ia7d54f53.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">805516339508</string>
+    <string name="google_api_key" translatable="false">AIzaSyCZVmBNannpq-B4fw8Zo69SM-yoUjE5Zkw</string>
+    <string name="google_app_id" translatable="false">1:805516339508:android:8df70b60daa2335adddd61</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCZVmBNannpq-B4fw8Zo69SM-yoUjE5Zkw</string>
+    <string name="google_storage_bucket" translatable="false">appkesath-2021.appspot.com</string>
+    <string name="project_id" translatable="false">appkesath-2021</string>
+</resources>

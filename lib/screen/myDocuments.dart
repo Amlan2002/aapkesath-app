@@ -9,7 +9,6 @@ class MyDocuments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         title: Text('My Documents'),
