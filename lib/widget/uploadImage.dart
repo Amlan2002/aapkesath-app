@@ -1,7 +1,6 @@
 import 'package:diabetes_app/screen/add_image.dart';
 import 'package:diabetes_app/screen/myDocuments.dart';
 import 'package:flutter/material.dart';
-// import 'package:transparent_image/transparent_image.dart';
 
 class UploadImage extends StatefulWidget {
   const UploadImage({Key? key}) : super(key: key);

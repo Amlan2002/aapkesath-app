@@ -38,6 +38,7 @@ class Auth {
       phoneNumber: phone,
       verificationCompleted: (PhoneAuthCredential credential) async {
         await FirebaseAuth.instance.signInWithCredential(credential);
+        Navigator.of(context).pop();
       },
       verificationFailed: (FirebaseAuthException e) async {
         await showExceptionAlertDialog(
@@ -54,11 +55,13 @@ class Auth {
     );
   }
 
-  Future<void> verifyOTP({required String otp}) async {
+  Future<void> verifyOTP(
+      {required String otp, required BuildContext context}) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID, smsCode: otp);
 
     await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.of(context).pop();
   }
 
   Future<void> signOut() async {

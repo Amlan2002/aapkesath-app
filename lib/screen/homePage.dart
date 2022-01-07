@@ -8,8 +8,10 @@ import 'package:provider/provider.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
+    required this.moveToDocument,
   }) : super(key: key);
   static const routeName = '/Home-page';
+  final VoidCallback moveToDocument;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -18,7 +20,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
+      drawer: NavigationDrawerWidget(
+        moveToDocuments: widget.moveToDocument,
+      ),
       appBar: AppBar(
         title: Text('AapkeSath'),
       ),
@@ -46,15 +50,13 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                             height: 50,
                             width: 220,
-                            child: Center(
-                              child: Text(
-                                "Good AfterNoon",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                ),
-                                softWrap: true,
+                            child: Text(
+                              "Welcome",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
                               ),
+                              softWrap: true,
                             ),
                           ),
                         ),
@@ -64,9 +66,10 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                             height: 50,
                             width: 200,
-                            child: Center(
-                              child: Consumer<AppUser?>(
-                                builder: (ctx, user, child) => Text(
+                            child: Consumer<AppUser?>(
+                              builder: (ctx, user, child) => FittedBox(
+                                alignment: Alignment.topLeft,
+                                child: Text(
                                   "${user!.firstName}!",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,

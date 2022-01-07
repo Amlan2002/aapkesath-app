@@ -1,6 +1,5 @@
 import 'package:diabetes_app/screen/loding_user.dart';
 import 'package:diabetes_app/service/auth.dart';
-import 'package:diabetes_app/widget/bottomNavigationBaWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

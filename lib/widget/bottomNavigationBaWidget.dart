@@ -5,9 +5,9 @@ import 'package:diabetes_app/screen/register.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
-  BottomNavigationBarWidget({Key? key, required this.newuser})
+  const BottomNavigationBarWidget({Key? key, required this.newuser})
       : super(key: key);
-  bool newuser;
+  final bool newuser;
   @override
   State<BottomNavigationBarWidget> createState() =>
       _BottomNavigationBarWidgetState();
@@ -15,7 +15,6 @@ class BottomNavigationBarWidget extends StatefulWidget {
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   int _selectedIndex = 0;
-  final sceren = [HomePage(), ManageMyHealth(), MyDocuments()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -37,6 +36,12 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
     }
   }
 
+  void moveToDocument() {
+    setState(() {
+      _selectedIndex = 2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return widget.newuser
@@ -51,7 +56,13 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           )
         : Scaffold(
             body: IndexedStack(
-              children: sceren,
+              children: [
+                HomePage(
+                  moveToDocument: moveToDocument,
+                ),
+                ManageMyHealth(),
+                MyDocuments()
+              ],
               index: _selectedIndex,
             ),
             bottomNavigationBar: BottomNavigationBar(

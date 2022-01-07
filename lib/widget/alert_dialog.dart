@@ -20,6 +20,9 @@ Future<void> showExceptionAlertDialog(BuildContext context,
 
 String _message(Exception exception) {
   if (exception is FirebaseException) {
+    if (exception.code == 'invalid-verification-code') {
+      return 'OTP dose not match. Resend it after some time';
+    }
     return exception.message!;
   }
   return exception.toString();

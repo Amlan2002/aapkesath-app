@@ -1,4 +1,3 @@
-import 'package:diabetes_app/widget/bottomNavigationBaWidget.dart';
 import 'package:diabetes_app/widget/healthdata.dart';
 import 'package:diabetes_app/widget/uploadImage.dart';
 import 'package:flutter/material.dart';

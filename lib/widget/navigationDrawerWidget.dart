@@ -1,11 +1,15 @@
+import 'package:diabetes_app/model/user.dart';
 import 'package:diabetes_app/screen/consultDoctors.dart';
 import 'package:diabetes_app/screen/manageMyHealth.dart';
-import 'package:diabetes_app/screen/myDocuments.dart';
 import 'package:diabetes_app/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
+  const NavigationDrawerWidget({Key? key, required this.moveToDocuments})
+      : super(key: key);
+
+  final VoidCallback moveToDocuments;
   @override
   State<NavigationDrawerWidget> createState() => _NavigationDrawerWidgetState();
 }
@@ -16,6 +20,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     final name = 'Shubam Tripati';
+
     final email = 'shubamtripath@abs.com';
     final urlImage =
         'https://us.123rf.com/450wm/yellowcrest/yellowcrest1609/yellowcrest160900005/69503434-a-senior-indian-south-asian-man-against-a-light-blue-background.jpg?ver=6';
@@ -25,8 +30,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         color: Colors.red[200],
         child: ListView(
           children: <Widget>[
-            buildHeader(
-                urlImage: urlImage, name: name, email: email, onClicked: () {}),
+            Consumer<AppUser?>(
+              builder: (_, user, __) => buildHeader(
+                  urlImage: urlImage,
+                  name: '${user!.firstName} ${user.lastName}',
+                  email: email,
+                  onClicked: () {}),
+            ),
             Divider(color: Colors.white70),
             Container(
               padding: padding,
@@ -37,12 +47,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   buildMenuItem(
                     text: 'My Documents',
                     icon: Icons.document_scanner,
-                    onClicked: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyDocuments()));
-                    },
+                    onClicked: widget.moveToDocuments,
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(

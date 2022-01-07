@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:diabetes_app/service/auth.dart';
 import 'package:diabetes_app/widget/alert_dialog.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +17,18 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   bool verifying = false;
   bool sent = false;
+  late Timer timer;
+
+  int timeLeft = 60;
 
   @override
   void didChangeDependencies() async {
+    await sendOtp();
+    super.didChangeDependencies();
+  }
+
+  Future<void> sendOtp() async {
+    startTimer();
     try {
       final auth = Provider.of<Auth>(context, listen: false);
       await auth.loginWithPhone(phone: '+91' + widget.number, context: context);
@@ -28,7 +40,19 @@ class _OtpScreenState extends State<OtpScreen> {
       );
       Navigator.of(context).pop();
     }
-    super.didChangeDependencies();
+  }
+
+  void startTimer() {
+    timeLeft = 60;
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      setState(() {
+        if (timeLeft > 0) {
+          timeLeft -= 1;
+        } else {
+          timer.cancel();
+        }
+      });
+    });
   }
 
   @override
@@ -69,18 +93,24 @@ class _OtpScreenState extends State<OtpScreen> {
                       verifying = true;
                     });
                     final auth = Provider.of<Auth>(context, listen: false);
-                    await auth.verifyOTP(otp: value);
+                    await auth.verifyOTP(otp: value, context: context);
+                    timer.cancel();
                   } on Exception catch (e) {
                     setState(() {
                       verifying = false;
                     });
                     await showExceptionAlertDialog(
                       context,
-                      title: 'Sign up failed',
+                      title: 'Sign in failed',
                       exception: e,
                     );
+                    if (e is FirebaseException &&
+                        e.code == 'invalid-verification-code') {
+                    } else {
+                      timer.cancel();
+                      Navigator.of(context).pop();
+                    }
                   }
-                  Navigator.of(context).pop();
                 },
                 onEditing: (bool value) {
                   setState(() {});
@@ -108,14 +138,26 @@ class _OtpScreenState extends State<OtpScreen> {
                       style: TextStyle(color: Colors.black),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (timeLeft > 0) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                              'Please wait $timeLeft second to try again',
+                              style: TextStyle(color: Colors.red, fontSize: 20),
+                            )),
+                          );
+                        } else {
+                          sendOtp();
+                        }
+                      },
                       child: Text(
                         'Resend',
                         style: TextStyle(color: Colors.green, fontSize: 15),
                       ),
                     ),
                     Text(
-                      'in 60 second',
+                      'in  $timeLeft second',
                       style: TextStyle(color: Colors.black),
                     ),
                   ],

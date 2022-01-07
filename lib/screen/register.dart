@@ -1,4 +1,5 @@
 import 'package:diabetes_app/model/user.dart';
+import 'package:diabetes_app/screen/landing_page.dart';
 import 'package:diabetes_app/service/auth.dart';
 import 'package:diabetes_app/service/firestoreApi.dart';
 import 'package:diabetes_app/widget/alert_dialog.dart';
@@ -98,7 +99,13 @@ class _ResgisterState extends State<Resgister> {
         message:
             'you have successfully signed up. Now you can continue with AppkeSath',
       );
-      Navigator.of(context).pop();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => LandingPage(),
+        ),
+        (route) => false,
+      );
     } on Exception catch (e) {
       setState(() {
         isLoading = false;
@@ -144,13 +151,13 @@ class _ResgisterState extends State<Resgister> {
           state: _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
           isActive: _activeStepIndex >= 0,
           title: Text('Account'),
-          content: InformationForm(),
+          content: informationForm(),
         ),
         Step(
           state: StepState.editing,
           isActive: _activeStepIndex >= 1,
           title: Text('Address'),
-          content: AddressForm(),
+          content: addressForm(),
         ),
       ];
 
@@ -325,7 +332,7 @@ class _ResgisterState extends State<Resgister> {
     );
   }
 
-  Widget InformationForm() {
+  Widget informationForm() {
     return SingleChildScrollView(
       child: Form(
         autovalidateMode: triedNextInformationForm
@@ -443,7 +450,7 @@ class _ResgisterState extends State<Resgister> {
     );
   }
 
-  Widget AddressForm() {
+  Widget addressForm() {
     return SingleChildScrollView(
       child: Form(
         autovalidateMode: triedNextAddressForm

@@ -13,7 +13,6 @@ class HealthSupportServices extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     double deviceHeight = mediaQueryData.size.height;
-    double devicewidth = mediaQueryData.size.width;
 
     return Scaffold(
       body: Column(
